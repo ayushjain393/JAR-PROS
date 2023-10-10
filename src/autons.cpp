@@ -66,7 +66,7 @@ void tank_odom_test(){
   chassis.turn_to_angle(0);
 }
 
-/*void holonomic_odom_test(){
+void holonomic_odom_test(){
   odom_constants();
   chassis.set_coordinates(0, 0, 0);
   chassis.holonomic_drive_to_point(0, 18, 90);
@@ -74,4 +74,3 @@ void tank_odom_test(){
   chassis.holonomic_drive_to_point(0, 18, 270);
   chassis.holonomic_drive_to_point(0, 0, 0);
 }
-*/

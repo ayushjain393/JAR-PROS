@@ -326,7 +326,7 @@ void Drive::turn_to_point(float X_position, float Y_position, float extra_angle_
   DriveR.set_brake_modes(pros::E_MOTOR_BRAKE_BRAKE);
   DriveR.brake();
 }
-/*
+
 void Drive::holonomic_drive_to_point(float X_position, float Y_position){
   holonomic_drive_to_point(X_position, Y_position, get_absolute_heading(), drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
@@ -342,7 +342,7 @@ void Drive::holonomic_drive_to_point(float X_position, float Y_position, float a
 void Drive::holonomic_drive_to_point(float X_position, float Y_position, float angle, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout){
   holonomic_drive_to_point(X_position, Y_position, angle, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
-//obsolete x drive odom motion algorithms
+
 
 void Drive::holonomic_drive_to_point(float X_position, float Y_position, float angle, float drive_max_voltage, float heading_max_voltage, float drive_settle_error, float drive_settle_time, float drive_timeout, float drive_kp, float drive_ki, float drive_kd, float drive_starti, float heading_kp, float heading_ki, float heading_kd, float heading_starti){
   desired_heading = angle;
@@ -360,18 +360,18 @@ void Drive::holonomic_drive_to_point(float X_position, float Y_position, float a
 
     float heading_error = atan2(Y_position-get_Y_position(), X_position-get_X_position());
 
-    DriveLF.spin(fwd, drive_output*cos(to_rad(get_absolute_heading()) + heading_error - M_PI/4) + turn_output, volt);
-    DriveLB.spin(fwd, drive_output*cos(-to_rad(get_absolute_heading()) - heading_error + 3*M_PI/4) + turn_output, volt);
-    DriveRB.spin(fwd, drive_output*cos(to_rad(get_absolute_heading()) + heading_error - M_PI/4) - turn_output, volt);
-    DriveRF.spin(fwd, drive_output*cos(-to_rad(get_absolute_heading()) - heading_error + 3*M_PI/4) - turn_output, volt);
-    task::sleep(10);
+    DriveLF.move_voltage(to_mili_volt(drive_output*cos(to_rad(get_absolute_heading()) + heading_error - M_PI/4) + turn_output));
+    DriveLB.move_voltage(to_mili_volt(drive_output*cos(-to_rad(get_absolute_heading()) - heading_error + 3*M_PI/4) + turn_output));
+    DriveRB.move_voltage(to_mili_volt(drive_output*cos(to_rad(get_absolute_heading()) + heading_error - M_PI/4) - turn_output));
+    DriveRF.move_voltage(to_mili_volt(drive_output*cos(-to_rad(get_absolute_heading()) - heading_error + 3*M_PI/4) - turn_output));
+    pros::Task::delay(10);
   }
-  DriveLF.brake(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
-  DriveLB.brake(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
-  DriveRB.brake(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
-  DriveRF.brake(E_MOTOR_BRAKE_BRAKE);
+  DriveLF.set_brake_mode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
+  DriveLB.set_brake_mode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
+  DriveRB.set_brake_mode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
+  DriveRF.set_brake_mode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_BRAKE);
 }
-*/
+
 void Drive::control_arcade(){
   float throttle = deadband(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)*100/127, 5);
   float turn = deadband(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y)*100/127, 5);

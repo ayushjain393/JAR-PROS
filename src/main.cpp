@@ -14,16 +14,16 @@ Drive chassis(
 //Specify your drive setup below. There are seven options:
 //ZERO_TRACKER_NO_ODOM, ZERO_TRACKER_ODOM, TANK_ONE_ENCODER, TANK_ONE_ROTATION, TANK_TWO_ENCODER, TANK_TWO_ROTATION, HOLONOMIC_TWO_ENCODER, and HOLONOMIC_TWO_ROTATION
 //For example, if you are not using odometry, put ZERO_TRACKER_NO_ODOM below:
-ZERO_TRACKER_NO_ODOM,
+ZERO_TRACKER_ODOM,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-{11,12,13},
+{11,13},
 
 //Right Motors:
-{-1,-2,-3},
+{-1,-3},
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. , not simply "1"):
 10,
@@ -51,8 +51,8 @@ ZERO_TRACKER_NO_ODOM,
 //If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
 
 //FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
+3,    13,
 11,    1,
-13,    5,
 
 //If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
 //If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
@@ -190,7 +190,7 @@ void autonomous() {
       tank_odom_test();
       break;
     case 7:
-      // /*holonomic_odom_test()*/;
+      holonomic_odom_test();
       break;
  }
 }
@@ -213,7 +213,7 @@ void opcontrol() {
 
 	while (true) {
 		
-		chassis.control_arcade();
+		chassis.control_holonomic();
 		pros::delay(20);
 	}
 }
