@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define M_PI   3.14159265358979323846264338327950288
 #include "..\api.h"
 
 #include "JAR-Template/odom.h"
